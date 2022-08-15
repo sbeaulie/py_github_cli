@@ -1,85 +1,80 @@
-
-# Python Project Template
-
-A low dependency and really simple to start project template for Python Projects.
-
-See also 
-- [Flask-Project-Template](https://github.com/rochacbruno/flask-project-template/) for a full feature Flask project including database, API, admin interface, etc.
-- [FastAPI-Project-Template](https://github.com/rochacbruno/fastapi-project-template/) The base to start an openapi project featuring: SQLModel, Typer, FastAPI, JWT Token Auth, Interactive Shell, Management Commands.
-
-### HOW TO USE THIS TEMPLATE
-
-> **DO NOT FORK** this is meant to be used from **[Use this template](https://github.com/rochacbruno/python-project-template/generate)** feature.
-
-1. Click on **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**
-3. Give a name to your project  
-   (e.g. `my_awesome_project` recommendation is to use all lowercase and underscores separation for repo names.)
-3. Wait until the first run of CI finishes  
-   (Github Actions will process the template and commit to your new repo)
-4. If you want [codecov](https://about.codecov.io/sign-up/) Reports and Automatic Release to [PyPI](https://pypi.org)  
-  On the new repository `settings->secrets` add your `PIPY_API_TOKEN` and `CODECOV_TOKEN` (get the tokens on respective websites)
-4. Read the file [CONTRIBUTING.md](CONTRIBUTING.md)
-5. Then clone your new project and happy coding!
-
-> **NOTE**: **WAIT** until first CI run on github actions before cloning your new project.
-
-### What is included on this template?
-
-- 🖼️ Templates for starting multiple application types:
-  * **Basic low dependency** Python program (default) [use this template](https://github.com/rochacbruno/python-project-template/generate)
-  * **Flask** with database, admin interface, restapi and authentication [use this template](https://github.com/rochacbruno/flask-project-template/generate).
-  **or Run `make init` after cloning to generate a new project based on a template.**
-- 📦 A basic [setup.py](setup.py) file to provide installation, packaging and distribution for your project.  
-  Template uses setuptools because it's the de-facto standard for Python packages, you can run `make switch-to-poetry` later if you want.
-- 🤖 A [Makefile](Makefile) with the most useful commands to install, test, lint, format and release your project.
-- 📃 Documentation structure using [mkdocs](http://www.mkdocs.org)
-- 💬 Auto generation of change log using **gitchangelog** to keep a HISTORY.md file automatically based on your commit history on every release.
-- 🐋 A simple [Containerfile](Containerfile) to build a container image for your project.  
-  `Containerfile` is a more open standard for building container images than Dockerfile, you can use buildah or docker with this file.
-- 🧪 Testing structure using [pytest](https://docs.pytest.org/en/latest/)
-- ✅ Code linting using [flake8](https://flake8.pycqa.org/en/latest/)
-- 📊 Code coverage reports using [codecov](https://about.codecov.io/sign-up/)
-- 🛳️ Automatic release to [PyPI](https://pypi.org) using [twine](https://twine.readthedocs.io/en/latest/) and github actions.
-- 🎯 Entry points to execute your program using `python -m <py_github_cli>` or `$ py_github_cli` with basic CLI argument parsing.
-- 🔄 Continuous integration using [Github Actions](.github/workflows/) with jobs to lint, test and release your project on Linux, Mac and Windows environments.
-
-> Curious about architectural decisions on this template? read [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md)  
-> If you want to contribute to this template please open an [issue](https://github.com/rochacbruno/python-project-template/issues) or fork and send a PULL REQUEST.
-
-[❤️ Sponsor this project](https://github.com/sponsors/rochacbruno/)
-
-<!--  DELETE THE LINES ABOVE THIS AND WRITE YOUR PROJECT README BELOW -->
-
 ---
 # py_github_cli
 
-[![codecov](https://codecov.io/gh/sbeaulie/py_github_cli/branch/main/graph/badge.svg?token=py_github_cli_token_here)](https://codecov.io/gh/sbeaulie/py_github_cli)
 [![CI](https://github.com/sbeaulie/py_github_cli/actions/workflows/main.yml/badge.svg)](https://github.com/sbeaulie/py_github_cli/actions/workflows/main.yml)
 
-Awesome py_github_cli created by sbeaulie
-
-## Install it from PyPI
-
-```bash
-pip install py_github_cli
-```
+py_github_cli created by sbeaulie
 
 ## Usage
-
-```py
-from py_github_cli import BaseClass
-from py_github_cli import base_function
-
-BaseClass().base_method()
-base_function()
-```
 
 ```bash
 $ python -m py_github_cli
 #or
 $ py_github_cli
+Usage:
+    py_github_cli releases <repo>
+    py_github_cli prs <repo>
+    py_github_cli -h|--help
+    py_github_cli -v|--version
 ```
+
+## Example usage
+
+![Usage](https://github.com/sbeaulie/py_github_cli/gifs/usage.gif)
+
+## Supported commands
+There are two cli commands supported: releases and prs
+### releases
+py_github_cli releases -> to get the top 3 releases names and versions
+### prs
+py_github_cli prs -> to get the top 3 prs
+
+## Supported repos
+
+After the command (releases or prs) the first parameter is the repo name
+py_github_cli releases <repo>
+### Repo format
+1. OWNER/REPO for example monkey/github_cli
+2. https://github.com/OWNER/REPO or
+3. git@github.com:OWNER/REPO
+### Public repos
+Public repos can be queried by anyone without authentication.
+### Private repos
+Private repos can be queried only if you provide a user and token for access.
+If querying a private repo without them, you will get a 404 error (same as not found)
+```bash
+$ export USER=foo; export TOKEN=ghp_foobar
+```
+A personal access token can be created in the github UI
+1. Go to Settings/Developer settings (https://github.com/settings/tokens)
+2. Click generate new token
+3. Select the permission for 'repo'
+4. save and take note of the token
+5. export TOKEN=${TOKEN_FROMSTEP_4} or set it before running the program
+
+## Known limitations
+### Github rate limiting
+60 requests per hour when unauthenticated
+5000 requests per hour when authenticated via the USER and TOKEN environment variables
+See https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting
 
 ## Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Docker-compose
+Perhaps the easiest way to run this code without having to install python and virtualenv
+which uses an off-the-shelf python alpine image (only 170MB)
+
+```bash
+# optional export ENV vars see above for private repos
+$ docker-compose run cli py_github_cli prs vuejs/vue
+Received response: 200 https://api.github.com/repos/vuejs/vue/pulls?per_page=3
+Listing top 3 PRs
+      
+  NUMBER  TITLE                                                    
+    
+  12738   fix: vue ssr server error when mapped item is undefined  
+  12737   feat(types): new Vue() improvements (#12730)             
+  12735   chore(v3/lifecycle): Enhanced type for onErrorCaptured   
+```

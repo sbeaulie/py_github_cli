@@ -1,3 +1,5 @@
+-r requirements.txt
+
 # This requirements are for development and testing only, not for production.
 pytest
 coverage
@@ -9,3 +11,5 @@ codecov
 mypy
 gitchangelog
 mkdocs
+ptyprocess==0.5.1
+types-requests

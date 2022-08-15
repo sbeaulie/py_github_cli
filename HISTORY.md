@@ -2,12 +2,8 @@ Changelog
 =========
 
 
-0.1.2 (2021-08-14)
+0.1.0 (2022-08-15)
 ------------------
-- Fix release, README and windows CI. [Bruno Rocha]
-- Release: version 0.1.0. [Bruno Rocha]
-
-
-0.1.0 (2021-08-14)
-------------------
-- Add release command. [Bruno Rocha]
+Initial release of py_github_cli with support for 2 github repository queries:
+- list the top 3 releases in a repo
+- list the top 3 PRs in a repo
