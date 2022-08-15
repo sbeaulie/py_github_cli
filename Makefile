@@ -56,7 +56,6 @@ clean:            ## Clean unused files.
 	@rm -rf build
 	@rm -rf dist
 	@rm -rf *.egg-info
-	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
 

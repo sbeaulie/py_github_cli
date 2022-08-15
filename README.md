@@ -15,7 +15,6 @@ Usage:
     py_github_cli releases <repo>
     py_github_cli prs <repo>
     py_github_cli -h|--help
-    py_github_cli -v|--version
 ```
 
 ## Example usage
@@ -81,4 +80,16 @@ Listing top 3 PRs
   12738   fix: vue ssr server error when mapped item is undefined  
   12737   feat(types): new Vue() improvements (#12730)             
   12735   chore(v3/lifecycle): Enhanced type for onErrorCaptured   
+```
+
+## With python installed locally
+You can build and run the program via virtualenv. 
+```bash
+$ make virtualenv
+$ source .venv/bin/activate
+$ py_github_cli
+Usage:
+    py_github_cli releases <repo>
+    py_github_cli prs <repo>
+    py_github_cli -h|--help
 ```
